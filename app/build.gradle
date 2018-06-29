@@ -3,6 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
+        // local.propertiesの読み込み
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def API_ADDRESS = properties.getProperty("api_address")
+        buildConfigField("String", "API_ADDRESS", "\"${API_ADDRESS}\"")
+
         applicationId "jp.ac.titech.itpro.sdl.itspfug202"
         minSdkVersion 19
         targetSdkVersion 27

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.api_address))
+                .baseUrl(BuildConfig.API_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
