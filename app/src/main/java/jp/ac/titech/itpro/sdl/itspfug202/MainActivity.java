@@ -1,5 +1,6 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -27,7 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,47 +55,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.API_ADDRESS)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
-        Call<List<Restaurant>> restaurantsCall = apiService.getRestaurants();
-        Log.d("Demo", "call apiService");
 
-        restaurantsCall.enqueue(new Callback<List<Restaurant>>() {
+
+        Button searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
-                List<Restaurant> restaurants = response.body();
-                StringBuilder restaurantsDemo = new StringBuilder();
-                for (Restaurant r: restaurants) {
-                    restaurantsDemo.append(r.toString());
-                }
-                Log.d("Demo", restaurantsDemo.toString());
-                TextView demo = findViewById(R.id.api_demo);
-                demo.setText(restaurantsDemo.toString());
-            }
-
-            @Override
-            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+                startActivity(intent);
             }
         });
-        /*
-        try {
-            List<Restaurant> restaurants = restaurantsCall.execute().body();
-            StringBuilder restaurantsDemo = new StringBuilder();
-            for (Restaurant r: restaurants) {
-                restaurantsDemo.append(r.toString());
-            }
-            Log.d("Demo", restaurantsDemo.toString());
-            TextView demo = findViewById(R.id.api_demo);
-            demo.setText(restaurantsDemo.toString());
-        }catch (Exception e){
-            Log.e("Demo", "exception", e);
-            e.printStackTrace();
-        }*/
-
     }
 
     @Override
