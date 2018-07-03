@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+                EditText searchText = findViewById(R.id.searchText);
+                intent.putExtra("name", searchText.getText().toString());
                 startActivity(intent);
             }
         });

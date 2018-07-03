@@ -1,5 +1,6 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,13 +25,14 @@ public class SearchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+        Intent intent = getIntent();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
-        Call<List<Restaurant>> restaurantsCall = apiService.getRestaurants();
+        Call<List<Restaurant>> restaurantsCall = apiService.getRestaurants(intent.getStringExtra("name"));
         Log.d("Demo", "call apiService");
 
         final RecyclerView recyclerView = findViewById(R.id.result_recycler);
