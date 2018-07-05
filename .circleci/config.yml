@@ -40,6 +40,10 @@ jobs:
           paths: ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
+      - run:
+          name: chmod permissions
+          command: chmod +x ./gradlew
+
       # run tests!
       - run:
           name: unit test
