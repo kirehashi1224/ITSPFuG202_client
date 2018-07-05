@@ -22,6 +22,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: create local.properties
+          command: echo > local.properties
+
       # Download and cache dependencies
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
