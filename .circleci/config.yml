@@ -33,17 +33,17 @@ jobs:
               echo y | android update sdk --no-ui --all --filter build-tools-27.0.0
 
       - run:
+          name: chmod permissions
+          command: chmod +x ./gradlew
+
+      - run:
           name: gradle dependencies
           command: ./gradlew androidDependencies
 
       - save_cache:
           paths: ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      - run:
-          name: chmod permissions
-          command: chmod +x ./gradlew
-
+      
       # run tests!
       - run:
           name: unit test
