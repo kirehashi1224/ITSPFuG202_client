@@ -6,7 +6,7 @@ android {
         // local.propertiesの読み込み
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        def API_ADDRESS = properties.getProperty("api_address")
+        def API_ADDRESS = properties.getProperty("api_address", System.getenv("api_address"))
         buildConfigField("String", "API_ADDRESS", "\"${API_ADDRESS}\"")
 
         applicationId "jp.ac.titech.itpro.sdl.itspfug202"
