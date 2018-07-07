@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
@@ -19,11 +17,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchResultActivity extends AppCompatActivity {
+public class SearchResultActivity extends AppCompatActivity implements SearchResultItemAdapter.SearchResultItemClickListener {
     ApiService apiService;
+    //RecyclerView.Adapter adapter;
+    SearchResultItemAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("SearchResultActivity","onCreate");
         setContentView(R.layout.activity_search_result);
         Intent intent = getIntent();
 
@@ -39,10 +40,12 @@ public class SearchResultActivity extends AppCompatActivity {
         LinearLayoutManager llManager = new LinearLayoutManager(this);
         llManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llManager);
+        adapter.setmClickListener(this);
 
         restaurantsCall.enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                Log.d("SearchResultActivity","onResponse");
                 List<Restaurant> restaurants = response.body();
                 /*StringBuilder restaurantsDemo = new StringBuilder();
                 for (Restaurant r: restaurants) {
@@ -53,7 +56,9 @@ public class SearchResultActivity extends AppCompatActivity {
                 TextView demo = findViewById(R.id.demo);
                 demo.setText(restaurantsDemo.toString());
                 */
-                RecyclerView.Adapter adapter = new SearchResultItemAdapter(restaurants);
+                //RecyclerView.Adapter adapter = new SearchResultItemAdapter(restaurants);
+                adapter = new SearchResultItemAdapter(restaurants);
+                //adapter.setmClickListener(this);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -62,5 +67,14 @@ public class SearchResultActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void mClick(View v, int pos , List<Restaurant> restaurantList) {
+        //final Intent intent = new Intent();
+        Log.d("SearchResultActivity","mClick");
+        Intent intent = new Intent(this.getApplicationContext(),SearchResultDetail.class);
+        intent.putExtra("restaurant",restaurantList.get(pos));
+        startActivity(intent);
     }
 }
