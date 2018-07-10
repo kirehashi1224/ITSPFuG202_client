@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
@@ -21,9 +19,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchResultActivity extends AppCompatActivity {
     ApiService apiService;
+    SearchResultItemAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("SearchResultActivity","onCreate");
         setContentView(R.layout.activity_search_result);
         Intent intent = getIntent();
 
@@ -43,17 +43,10 @@ public class SearchResultActivity extends AppCompatActivity {
         restaurantsCall.enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                Log.d("SearchResultActivity","onResponse");
                 List<Restaurant> restaurants = response.body();
-                /*StringBuilder restaurantsDemo = new StringBuilder();
-                for (Restaurant r: restaurants) {
-                    restaurantsDemo.append(r.toString());
-
-                }
-                Log.d("Demo", restaurantsDemo.toString());
-                TextView demo = findViewById(R.id.demo);
-                demo.setText(restaurantsDemo.toString());
-                */
-                RecyclerView.Adapter adapter = new SearchResultItemAdapter(restaurants);
+                //RecyclerView.Adapter adapter = new SearchResultItemAdapter(restaurants);
+                adapter = new SearchResultItemAdapter(restaurants);
                 recyclerView.setAdapter(adapter);
             }
 

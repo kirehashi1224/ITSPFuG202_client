@@ -1,6 +1,8 @@
 package jp.ac.titech.itpro.sdl.itspfug202.model;
 
-public class Restaurant {
+import java.io.Serializable;
+
+public class Restaurant implements Serializable{
     private String name;
     private String address;
 
