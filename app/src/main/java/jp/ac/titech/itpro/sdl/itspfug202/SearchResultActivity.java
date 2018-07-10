@@ -17,9 +17,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchResultActivity extends AppCompatActivity implements SearchResultItemAdapter.SearchResultItemClickListener {
+public class SearchResultActivity extends AppCompatActivity {
     ApiService apiService;
-    //RecyclerView.Adapter adapter;
     SearchResultItemAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,25 +39,14 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
         LinearLayoutManager llManager = new LinearLayoutManager(this);
         llManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llManager);
-        adapter.setmClickListener(this);
 
         restaurantsCall.enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                 Log.d("SearchResultActivity","onResponse");
                 List<Restaurant> restaurants = response.body();
-                /*StringBuilder restaurantsDemo = new StringBuilder();
-                for (Restaurant r: restaurants) {
-                    restaurantsDemo.append(r.toString());
-
-                }
-                Log.d("Demo", restaurantsDemo.toString());
-                TextView demo = findViewById(R.id.demo);
-                demo.setText(restaurantsDemo.toString());
-                */
                 //RecyclerView.Adapter adapter = new SearchResultItemAdapter(restaurants);
                 adapter = new SearchResultItemAdapter(restaurants);
-                //adapter.setmClickListener(this);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -67,14 +55,5 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
 
             }
         });
-    }
-
-    @Override
-    public void mClick(View v, int pos , List<Restaurant> restaurantList) {
-        //final Intent intent = new Intent();
-        Log.d("SearchResultActivity","mClick");
-        Intent intent = new Intent(this.getApplicationContext(),SearchResultDetail.class);
-        intent.putExtra("restaurant",restaurantList.get(pos));
-        startActivity(intent);
     }
 }
