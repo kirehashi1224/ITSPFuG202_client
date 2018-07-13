@@ -40,7 +40,7 @@ public class SearchResultItemAdapter extends RecyclerView.Adapter<SearchResultIt
             @Override
             public void onClick(View v) {
                 Log.d("SearchResultItemAdapter","onClick");
-                Intent intent = new Intent(v.getContext(),SearchResultDetail.class);
+                Intent intent = new Intent(v.getContext(),RestaurantDetail.class);
                 intent.putExtra("restaurant",restaurantList.get(pos));
                 v.getContext().startActivity(intent);
             }
