@@ -10,4 +10,7 @@ import retrofit2.http.Query;
 public interface ApiService {
     @GET("restaurants")
     Call<List<Restaurant>> getRestaurants(@Query("name") String name);
+
+    @GET("restaurants/?random_extract=true")
+    Call<List<Restaurant>> getRandomRestaurants(@Query("name") String name);
 }
