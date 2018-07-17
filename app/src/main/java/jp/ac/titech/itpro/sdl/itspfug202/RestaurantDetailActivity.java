@@ -1,10 +1,12 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.List;
@@ -49,11 +51,18 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                 @Override
                 public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                     Log.d("SearchResultActivity","onResponse");
-                    Restaurant restaurant = response.body().get(0);
-                    TextView detailName = findViewById(R.id.search_result_text1);
-                    TextView detailAddress = findViewById(R.id.search_result_text2);
-                    detailName.setText(restaurant.getName());
-                    detailAddress.setText(restaurant.getAddress());
+                    List<Restaurant> restaurantList = response.body();
+                    if(restaurantList.size() >= 1){
+                        Restaurant restaurant = response.body().get(0);
+                        TextView detailName = findViewById(R.id.search_result_text1);
+                        TextView detailAddress = findViewById(R.id.search_result_text2);
+                        detailName.setText(restaurant.getName());
+                        detailAddress.setText(restaurant.getAddress());
+                    }else{
+                        Toast.makeText(RestaurantDetailActivity.this, "該当する店が存在しません", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RestaurantDetailActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
 
                 @Override
