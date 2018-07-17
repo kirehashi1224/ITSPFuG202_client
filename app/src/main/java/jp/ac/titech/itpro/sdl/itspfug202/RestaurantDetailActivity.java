@@ -53,13 +53,13 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                     Log.d("SearchResultActivity","onResponse");
                     List<Restaurant> restaurantList = response.body();
                     if(restaurantList.size() >= 1){
-                        Restaurant restaurant = response.body().get(0);
+                        Restaurant restaurant = restaurantList.get(0);
                         TextView detailName = findViewById(R.id.search_result_text1);
                         TextView detailAddress = findViewById(R.id.search_result_text2);
                         detailName.setText(restaurant.getName());
                         detailAddress.setText(restaurant.getAddress());
                     }else{
-                        Toast.makeText(RestaurantDetailActivity.this, "該当する店が存在しません", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RestaurantDetailActivity.this, "該当する店が存在しません", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RestaurantDetailActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
