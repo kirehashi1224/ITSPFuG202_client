@@ -17,4 +17,5 @@
     <string name="detail_friday">金：</string>
     <string name="detail_saturday">土：</string>
     <string name="detail_sunday">日：</string>
+    <string name="random_button">押せ！</string>
 </resources>
