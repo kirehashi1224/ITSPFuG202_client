@@ -17,7 +17,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/random_button"
-        android:textSize="80sp"
+        android:textSize="160sp"
         app:layout_constraintBottom_toTopOf="@+id/mainGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
