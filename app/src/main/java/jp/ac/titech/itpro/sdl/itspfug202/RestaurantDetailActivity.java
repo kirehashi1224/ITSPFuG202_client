@@ -32,7 +32,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         TextView detailName = findViewById(R.id.detail_shop_name);
         TextView detailAddress = findViewById(R.id.detail_shop_address);
 
-        // 詳細画面の表示(仮)
+        // 詳細画面の表示
         DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.DetailviewPager);
         viewPager.setOffscreenPageLimit(1);

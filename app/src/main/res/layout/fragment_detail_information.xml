@@ -19,7 +19,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="小日向美穂"
             android:textSize="45sp" />
 
         <ImageView
@@ -28,7 +27,7 @@
             android:layout_height="100dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:src="@drawable/temp" />
+            android:src="@drawable/default_shop" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,14 +43,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="住所:"
+                android:text="@string/detail_address"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/detail_shop_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="もばぷろ"
+                android:text="@string/detail_unknown"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -63,7 +62,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="営業時間"
+                android:text="@string/detail_timespan"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -80,13 +79,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="月:" />
+                        android:text="@string/detail_monday" />
 
                     <TextView
                         android:id="@+id/monday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="卯月が寝るまで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,13 +96,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="火:" />
+                        android:text="@string/detail_tuesday" />
 
                     <TextView
                         android:id="@+id/tuesday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="響子のご飯ができるまで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -114,13 +113,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="水:" />
+                        android:text="@string/detail_wednesday" />
 
                     <TextView
                         android:id="@+id/wednesday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="藍子と散歩するまで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,13 +130,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="木:" />
+                        android:text="@string/detail_thursday" />
 
                     <TextView
                         android:id="@+id/thursday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="智絵里とお昼寝するまで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -148,13 +147,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="金:" />
+                        android:text="@string/detail_friday" />
 
                     <TextView
                         android:id="@+id/friday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="杏とのぬいぐるみ談義まで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -165,13 +164,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="土:" />
+                        android:text="@string/detail_saturday" />
 
                     <TextView
                         android:id="@+id/saturday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="加蓮とお洒落するまで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -182,13 +181,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="日:" />
+                        android:text="@string/detail_sunday" />
 
                     <TextView
                         android:id="@+id/sunday_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="プロデューサーくんの洗濯が終わるまで" />
+                        android:text="@string/detail_unknown" />
                 </LinearLayout>
 
 

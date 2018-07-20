@@ -7,4 +7,14 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="search_button">検索</string>
+    <string name="detail_unknown">未記入</string>
+    <string name="detail_address">住所：</string>
+    <string name="detail_timespan">営業時間</string>
+    <string name="detail_monday">月：</string>
+    <string name="detail_tuesday">火：</string>
+    <string name="detail_wednesday">水：</string>
+    <string name="detail_thursday">木：</string>
+    <string name="detail_friday">金：</string>
+    <string name="detail_saturday">土：</string>
+    <string name="detail_sunday">日：</string>
 </resources>
