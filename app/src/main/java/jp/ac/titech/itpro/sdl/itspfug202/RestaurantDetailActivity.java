@@ -57,7 +57,14 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                         TextView detailName = findViewById(R.id.search_result_text1);
                         TextView detailAddress = findViewById(R.id.search_result_text2);
                         detailName.setText(restaurant.getName());
-                        detailAddress.setText(restaurant.getAddress());
+                        StringBuilder sb = new StringBuilder();
+                        for (Restaurant.DayOfWeek dw : Restaurant.DayOfWeek.values()) {
+                            sb.append(dw.toString());
+                            sb.append(": ");
+                            sb.append(restaurant.getTimeSpan(dw));
+                            sb.append("\n");
+                        }
+                        detailAddress.setText(sb.toString());
                     }else{
                         Toast.makeText(RestaurantDetailActivity.this, "該当する店が存在しません", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RestaurantDetailActivity.this, MainActivity.class);
