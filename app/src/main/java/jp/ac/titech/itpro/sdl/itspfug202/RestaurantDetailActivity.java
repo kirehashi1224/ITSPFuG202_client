@@ -3,6 +3,8 @@ package jp.ac.titech.itpro.sdl.itspfug202;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -71,5 +73,14 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                 }
             });
         }
+
+        // 詳細画面の表示(仮)
+        DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.DetailviewPager);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
