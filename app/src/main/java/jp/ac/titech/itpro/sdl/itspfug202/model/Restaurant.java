@@ -10,6 +10,8 @@ import java.util.List;
 //import java.util.Date;
 
 public class Restaurant implements Serializable{
+
+    private int id;
     private String name;
     private String address;
     @SerializedName("timespans")
@@ -17,6 +19,9 @@ public class Restaurant implements Serializable{
 
     private TimeSpanList timeSpanList;
     //private String openTime;
+    public int getid() {
+        return id;
+    }
 
     public TimeSpanList getTimeSpanList() {
         return timeSpanList;

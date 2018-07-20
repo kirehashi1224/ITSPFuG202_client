@@ -56,7 +56,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                         Restaurant restaurant = restaurantList.get(0);
                         TextView detailName = findViewById(R.id.search_result_text1);
                         TextView detailAddress = findViewById(R.id.search_result_text2);
-                        detailName.setText(restaurant.getName());
+                        detailName.setText("name:" + restaurant.getName() + ",ID:" + restaurant.getid());
                         StringBuilder sb = new StringBuilder();
                         for (Restaurant.DayOfWeek dw : Restaurant.DayOfWeek.values()) {
                             sb.append(dw.toString());
