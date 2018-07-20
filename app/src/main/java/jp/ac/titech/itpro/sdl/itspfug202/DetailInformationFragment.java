@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Detailinformation extends Fragment {
+public class DetailInformationFragment extends Fragment {
 
-    public Detailinformation(){
+    public DetailInformationFragment(){
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_detailinformation, container, false);
+        return inflater.inflate(R.layout.fragment_detail_information, container, false);
     }
 
     @Override

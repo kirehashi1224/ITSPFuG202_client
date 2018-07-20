@@ -21,7 +21,7 @@ public class DetailFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 0:
-                return new Detailinformation();
+                return new DetailInformationFragment();
             default:
                 return null;
         }

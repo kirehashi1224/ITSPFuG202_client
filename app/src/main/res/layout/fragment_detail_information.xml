@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".DetailInformationFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/detail_shop_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="小日向美穂"
+            android:textSize="45sp" />
+
+        <ImageView
+            android:id="@+id/detail_shop_image"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/temp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="住所:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/detail_shop_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="もばぷろ"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="営業時間"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="月:" />
+
+                    <TextView
+                        android:id="@+id/monday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="卯月が寝るまで" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="火:" />
+
+                    <TextView
+                        android:id="@+id/tuesday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="響子のご飯ができるまで" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="水:" />
+
+                    <TextView
+                        android:id="@+id/wednesday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="藍子と散歩するまで" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="木:" />
+
+                    <TextView
+                        android:id="@+id/thursday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="智絵里とお昼寝するまで" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="金:" />
+
+                    <TextView
+                        android:id="@+id/friday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="杏とのぬいぐるみ談義まで" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="土:" />
+
+                    <TextView
+                        android:id="@+id/saturday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="加蓮とお洒落するまで" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="日:" />
+
+                    <TextView
+                        android:id="@+id/sunday_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="プロデューサーくんの洗濯が終わるまで" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

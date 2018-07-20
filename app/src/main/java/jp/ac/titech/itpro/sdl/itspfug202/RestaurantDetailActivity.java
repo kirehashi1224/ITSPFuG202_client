@@ -29,14 +29,23 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         super.onCreate(savedInstanceState);
         //Toast.makeText(this,"poi");
         setContentView(R.layout.search_result_detail);
-        TextView tx1 = findViewById(R.id.search_result_text1);
-        TextView tx2 = findViewById(R.id.search_result_text2);
+        TextView detailName = findViewById(R.id.detail_shop_name);
+        TextView detailAddress = findViewById(R.id.detail_shop_address);
+
+        // 詳細画面の表示(仮)
+        DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.DetailviewPager);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
         // SearchResultActivityからの遷移
         myRestaurant = (Restaurant)getIntent().getSerializableExtra("restaurant");
         if(myRestaurant != null){
-            tx1.setText(myRestaurant.getName());
-            tx2.setText(myRestaurant.getAddress());
+            detailName.setText(myRestaurant.getName());
+            detailAddress.setText(myRestaurant.getAddress());
         }
 
         // MainActivityからランダムボタンでの遷移
@@ -56,8 +65,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                     List<Restaurant> restaurantList = response.body();
                     if(restaurantList.size() >= 1){
                         Restaurant restaurant = restaurantList.get(0);
-                        TextView detailName = findViewById(R.id.search_result_text1);
-                        TextView detailAddress = findViewById(R.id.search_result_text2);
+                        TextView detailName = findViewById(R.id.detail_shop_name);
+                        TextView detailAddress = findViewById(R.id.detail_shop_address);
                         detailName.setText(restaurant.getName());
                         detailAddress.setText(restaurant.getAddress());
                     }else{
@@ -74,13 +83,6 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
             });
         }
 
-        // 詳細画面の表示(仮)
-        DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.DetailviewPager);
-        viewPager.setOffscreenPageLimit(1);
-        viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
-        tabLayout.setupWithViewPager(viewPager);
     }
 }
