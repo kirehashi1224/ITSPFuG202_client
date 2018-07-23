@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
 
 public class DetailInformationFragment extends Fragment {
 
@@ -15,7 +18,15 @@ public class DetailInformationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_detail_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail_information, container, false);
+        TextView detailName = view.findViewById(R.id.detail_shop_name);
+        TextView detailAddress = view.findViewById(R.id.detail_shop_address);
+        Restaurant restaurant = (Restaurant) getArguments().getSerializable("restaurant");
+        if(restaurant != null){
+            detailName.setText(restaurant.getName());
+            detailAddress.setText(restaurant.getAddress());
+        }
+        return view;
     }
 
     @Override
