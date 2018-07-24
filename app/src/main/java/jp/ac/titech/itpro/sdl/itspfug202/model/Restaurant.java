@@ -63,6 +63,7 @@ public class Restaurant implements Serializable{
                 String[] spans = times[i].split("/");
                 for (int j = 0; j < spans.length; j++) {
                     String[] time = spans[j].split(";");
+                    if (time.length != 2) continue;
                     String[] begin = time[0].split(":");
                     String[] end = time[1].split(":");
                     this.timeSpanList.setTimespanList(DayOfWeek.values()[i], new TimeSpan(new Time(Integer.parseInt(begin[0]), Integer.parseInt(begin[1])), new Time(Integer.parseInt(end[0]), Integer.parseInt(end[1]))));
@@ -70,6 +71,7 @@ public class Restaurant implements Serializable{
             }
         }
         List<TimeSpan> lis = timeSpanList.getTimespanList(dw);
+        if (lis.size() == 0) return "定休日";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lis.size(); ++i) {
             if (i > 0) sb.append(" / ");
