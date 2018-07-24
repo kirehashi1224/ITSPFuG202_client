@@ -61,8 +61,23 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                         Restaurant restaurant = restaurantList.get(0);
                         TextView detailName = findViewById(R.id.detail_shop_name);
                         TextView detailAddress = findViewById(R.id.detail_shop_address);
+                        TextView mondayTime = findViewById(R.id.monday_time);
+                        TextView tuesdayTime = findViewById(R.id.tuesday_time);
+                        TextView wednesdayTime = findViewById(R.id.wednesday_time);
+                        TextView thursdayTime = findViewById(R.id.thursday_time);
+                        TextView fridayTime = findViewById(R.id.friday_time);
+                        TextView saturdayTime = findViewById(R.id.saturday_time);
+                        TextView sundayTime = findViewById(R.id.sunday_time);
                         detailName.setText(restaurant.getName());
                         detailAddress.setText(restaurant.getAddress());
+                        mondayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.MONDAY));
+                        tuesdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.TUESDAY));
+                        wednesdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.WEDNESDAY));
+                        thursdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.THURSDAY));
+                        fridayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.FRIDAY));
+                        saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
+                        sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
+
                         /*
                         StringBuilder sb = new StringBuilder();
                         for (Restaurant.DayOfWeek dw : Restaurant.DayOfWeek.values()) {
