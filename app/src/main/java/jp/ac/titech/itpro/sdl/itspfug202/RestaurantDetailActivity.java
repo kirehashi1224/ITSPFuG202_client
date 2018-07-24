@@ -21,32 +21,26 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestaurantDetailActivity extends AppCompatActivity implements Serializable {
-    private Restaurant myRestaurant;
-    private ApiService apiService;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d("SearchResultDetail","onCreate");
         super.onCreate(savedInstanceState);
-        //Toast.makeText(this,"poi");
         setContentView(R.layout.search_result_detail);
-        TextView detailName = findViewById(R.id.detail_shop_name);
-        TextView detailAddress = findViewById(R.id.detail_shop_address);
+
+        Bundle bundle = new Bundle();
+        // SearchResultActivityからの遷移
+        Restaurant myRestaurant = (Restaurant)getIntent().getSerializableExtra("restaurant");
+        if(myRestaurant != null){
+            bundle.putSerializable("restaurant", myRestaurant);
+        }
 
         // 詳細画面の表示
-        DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager());
+        DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager(), bundle);
         ViewPager viewPager = findViewById(R.id.DetailviewPager);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
-
         TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
         tabLayout.setupWithViewPager(viewPager);
-
-        // SearchResultActivityからの遷移
-        myRestaurant = (Restaurant)getIntent().getSerializableExtra("restaurant");
-        if(myRestaurant != null){
-            detailName.setText(myRestaurant.getName());
-            detailAddress.setText(myRestaurant.getAddress());
-        }
 
         // MainActivityからランダムボタンでの遷移
         if(getIntent().getStringExtra("random") != null){
@@ -54,7 +48,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                     .baseUrl(BuildConfig.API_ADDRESS)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            apiService = retrofit.create(ApiService.class);
+            ApiService apiService = retrofit.create(ApiService.class);
             Call<List<Restaurant>> randomRestaurantsCall = apiService.getRandomRestaurants("");
             Log.d("Demo", "call apiService randomRestaurants");
 
