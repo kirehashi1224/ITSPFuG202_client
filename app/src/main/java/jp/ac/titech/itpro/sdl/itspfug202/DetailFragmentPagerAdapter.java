@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class DetailFragmentPagerAdapter extends FragmentPagerAdapter {
     Bundle bundle;
 
-    private CharSequence[] tabTitles = {"詳細"};
+    private CharSequence[] tabTitles = {"詳細", "テスト"};
 
     public DetailFragmentPagerAdapter(FragmentManager fm, Bundle bundle){
         super(fm);
@@ -27,6 +27,10 @@ public class DetailFragmentPagerAdapter extends FragmentPagerAdapter {
                 DetailInformationFragment detailInformationFragment = new DetailInformationFragment();
                 detailInformationFragment.setArguments(bundle);
                 return detailInformationFragment;
+            case 1:
+                TestTabFragment testTabFragment = new TestTabFragment();
+                testTabFragment.setArguments(bundle);
+                return testTabFragment;
             default:
                 return null;
         }

@@ -18,4 +18,7 @@
     <string name="detail_saturday">土：</string>
     <string name="detail_sunday">日：</string>
     <string name="random_button">押せ！</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">テスト用の空白タブ</string>
 </resources>
