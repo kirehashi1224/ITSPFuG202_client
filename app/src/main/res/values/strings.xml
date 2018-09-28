@@ -18,4 +18,5 @@
     <string name="detail_saturday">土：</string>
     <string name="detail_sunday">日：</string>
     <string name="random_button">押せ！</string>
+    <string name="redraw_button">この店は嫌じゃ！</string>
 </resources>

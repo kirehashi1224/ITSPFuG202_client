@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,18 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
         tabLayout.setupWithViewPager(viewPager);
+    /*
+        //redraw_buttonの動作
+        Button redrawButton = findViewById(R.id.redraw_button);
+        redrawButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantDetailActivity.this, RestaurantDetailActivity.class);
+                intent.putExtra("random", "true");
+                startActivity(intent);
+            }
+        });
+        */
 
         // MainActivityからランダムボタンでの遷移
         if(getIntent().getStringExtra("random") != null){
