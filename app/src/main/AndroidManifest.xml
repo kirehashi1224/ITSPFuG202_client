@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".SearchResultActivity" />
         <activity android:name=".RestaurantDetailActivity" />
-        <activity android:name=".DetailInformationFragment"></activity>
     </application>
 
 </manifest>

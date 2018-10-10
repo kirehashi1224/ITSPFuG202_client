@@ -1,9 +1,11 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +32,7 @@ public class DetailInformationFragment extends Fragment {
         TextView fridayTime = view.findViewById(R.id.friday_time);
         TextView saturdayTime = view.findViewById(R.id.saturday_time);
         TextView sundayTime = view.findViewById(R.id.sunday_time);
-        Restaurant restaurant = (Restaurant) getArguments().getSerializable("restaurant");
+        final Restaurant restaurant = (Restaurant) getArguments().getSerializable("restaurant");
         if(restaurant != null){
             detailName.setText(restaurant.getName());
             detailAddress.setText(restaurant.getAddress());
@@ -41,6 +43,17 @@ public class DetailInformationFragment extends Fragment {
             fridayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.FRIDAY));
             saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
             sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
+
+            //map_buttonの動作
+            Button mapButton = view.findViewById(R.id.map_button);
+            mapButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse("geo:0,0?q="+restaurant.getAddress());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
         }
         //redraw_buttonの動作
         Button redrawButton = view.findViewById(R.id.redraw_button);
@@ -52,6 +65,9 @@ public class DetailInformationFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+
         return view;
     }
 
