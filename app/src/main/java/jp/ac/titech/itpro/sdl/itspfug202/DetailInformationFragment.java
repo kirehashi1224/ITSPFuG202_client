@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,13 +44,13 @@ public class DetailInformationFragment extends Fragment {
             saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
             sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
 
-            Button mapButton = view.findViewById(R.id.mapbutton);
+            //map_buttonの動作
+            Button mapButton = view.findViewById(R.id.map_button);
             mapButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Uri uri = Uri.parse("geo:0,0?q="+restaurant.getAddress());
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    intent.setPackage("com.google.android.apps.maps");
                     startActivity(intent);
                 }
             });

@@ -1,6 +1,7 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -72,7 +73,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                     Log.d("SearchResultActivity","onResponse");
                     List<Restaurant> restaurantList = response.body();
                     if(restaurantList.size() >= 1){
-                        Restaurant restaurant = restaurantList.get(0);
+                        final Restaurant restaurant = restaurantList.get(0);
                         TextView detailName = findViewById(R.id.detail_shop_name);
                         TextView detailAddress = findViewById(R.id.detail_shop_address);
                         TextView mondayTime = findViewById(R.id.monday_time);
@@ -91,6 +92,17 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                         fridayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.FRIDAY));
                         saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
                         sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
+
+                        //map_buttonの動作
+                        Button mapButton = findViewById(R.id.map_button);
+                        mapButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Uri uri = Uri.parse("geo:0,0?q="+restaurant.getAddress());
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                            }
+                        });
 
                         /*
                         StringBuilder sb = new StringBuilder();
