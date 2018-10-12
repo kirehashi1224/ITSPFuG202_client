@@ -44,18 +44,6 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
         tabLayout.setupWithViewPager(viewPager);
-    /*
-        //redraw_buttonの動作
-        Button redrawButton = findViewById(R.id.redraw_button);
-        redrawButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RestaurantDetailActivity.this, RestaurantDetailActivity.class);
-                intent.putExtra("random", "true");
-                startActivity(intent);
-            }
-        });
-        */
 
         // MainActivityからランダムボタンでの遷移
         if(getIntent().getStringExtra("random") != null){
@@ -103,17 +91,6 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                                 startActivity(intent);
                             }
                         });
-
-                        /*
-                        StringBuilder sb = new StringBuilder();
-                        for (Restaurant.DayOfWeek dw : Restaurant.DayOfWeek.values()) {
-                            sb.append(dw.toString());
-                            sb.append(": ");
-                            sb.append(restaurant.getTimeSpan(dw));
-                            sb.append("\n");
-                        }
-                        detailAddress.setText(sb.toString());
-                        */
                     }else{
                         Toast.makeText(RestaurantDetailActivity.this, "該当する店が存在しません", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RestaurantDetailActivity.this, MainActivity.class);
