@@ -39,7 +39,7 @@
         <ImageView
             android:id="@+id/detail_shop_image"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:src="@drawable/default_shop" />

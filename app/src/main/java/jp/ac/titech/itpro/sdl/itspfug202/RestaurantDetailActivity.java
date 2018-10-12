@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -76,6 +79,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                         final Restaurant restaurant = restaurantList.get(0);
                         TextView detailName = findViewById(R.id.detail_shop_name);
                         TextView detailAddress = findViewById(R.id.detail_shop_address);
+                        ImageView detailShopImage = findViewById(R.id.detail_shop_image);
                         TextView mondayTime = findViewById(R.id.monday_time);
                         TextView tuesdayTime = findViewById(R.id.tuesday_time);
                         TextView wednesdayTime = findViewById(R.id.wednesday_time);
@@ -92,6 +96,9 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
                         fridayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.FRIDAY));
                         saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
                         sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
+
+//                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).into(detailShopImage);
+                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/oppai.png").into(detailShopImage);
 
                         //map_buttonの動作
                         Button mapButton = findViewById(R.id.map_button);
