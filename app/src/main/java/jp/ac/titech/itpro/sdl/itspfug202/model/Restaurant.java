@@ -14,6 +14,7 @@ public class Restaurant implements Serializable{
     private int id;
     private String name;
     private String address;
+    private String image_path;
     @SerializedName("timespans")
     private String timeSpanString;
 
@@ -55,9 +56,17 @@ public class Restaurant implements Serializable{
         this.address = address;
     }
 
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
     public String getTimeSpan(DayOfWeek dw) {
         if (timeSpanList == null) {
-            String[] times = timeSpanString.split(",");
+            String[] times = timeSpanString.split("|");
             this.timeSpanList = new TimeSpanList(times.length);
             for (int i = 0; i < times.length; i++) {
                 String[] spans = times[i].split("/");
@@ -85,6 +94,7 @@ public class Restaurant implements Serializable{
         return "Restaurant{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
+                ", image_path='" + image_path + '\'' +
                 '}';
     }
     // TODO:isOpen()
@@ -100,8 +110,6 @@ public class Restaurant implements Serializable{
         }
         public List<TimeSpan> getTimespanList(DayOfWeek dw){
             switch (dw){
-                case SUNDAY:
-                    return ls[6];
                 case MONDAY:
                     return ls[0];
                 case TUESDAY:
@@ -114,14 +122,13 @@ public class Restaurant implements Serializable{
                     return ls[4];
                 case SATURDAY:
                     return ls[5];
+                case SUNDAY:
+                    return ls[6];
                 default: return null;
             }
         }
         public void setTimespanList(DayOfWeek dw, TimeSpan sp){
             switch (dw){
-                case SUNDAY:
-                    ls[6].add(sp);
-                    break;
                 case MONDAY:
                     ls[0].add(sp);
                     break;
@@ -139,6 +146,9 @@ public class Restaurant implements Serializable{
                     break;
                 case SATURDAY:
                     ls[5].add(sp);
+                    break;
+                case SUNDAY:
+                    ls[6].add(sp);
                     break;
             }
         }
