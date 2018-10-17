@@ -81,8 +81,10 @@ public class DetailInformationFragment extends Fragment {
                     saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
                     sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
 
-                    Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/oppai.png").into(detailShopImage);
-                    // Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).into(detailShopImage);
+                    // Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/oppai.png").into(detailShopImage);
+                    if(restaurant.getImage_path() != null && restaurant.getImage_path().length() > 0){
+                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).into(detailShopImage);
+                    }
 
                     //map_buttonの動作
                     mapButton.setOnClickListener(new View.OnClickListener() {
