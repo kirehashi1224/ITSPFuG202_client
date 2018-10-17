@@ -66,7 +66,7 @@ public class Restaurant implements Serializable{
 
     public String getTimeSpan(DayOfWeek dw) {
         if (timeSpanList == null) {
-            String[] times = timeSpanString.split(",");
+            String[] times = timeSpanString.split("|");
             this.timeSpanList = new TimeSpanList(times.length);
             for (int i = 0; i < times.length; i++) {
                 String[] spans = times[i].split("/");
