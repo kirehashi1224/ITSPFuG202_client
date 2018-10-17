@@ -96,11 +96,11 @@ public class Restaurant implements Serializable{
                 ", address='" + address + '\'' +
                 ", image_path='" + image_path + '\'' +
                 '}';
-    }
+}
     // TODO:isOpen()
 
     //public List<Date>
-    public class TimeSpanList{
+    public class TimeSpanList implements Serializable{
         private List<TimeSpan>[] ls;
         public TimeSpanList(int wc) {
             ls = new List[wc];
@@ -153,7 +153,7 @@ public class Restaurant implements Serializable{
             }
         }
     }
-    class Time{
+    class Time implements Serializable{
         int hour;
         int minute;
         Time(int hour,int minute){
@@ -165,10 +165,10 @@ public class Restaurant implements Serializable{
             return String.format("%d:%02d", hour, minute);
         }
     }
-    public enum DayOfWeek{
+    public enum DayOfWeek implements Serializable{
         SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY
     }
-    class TimeSpan {
+    class TimeSpan implements Serializable{
         Time open;
         Time close;
         TimeSpan(Time open, Time close){
