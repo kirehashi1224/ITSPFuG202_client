@@ -14,6 +14,7 @@ public class Restaurant implements Serializable{
     private int id;
     private String name;
     private String address;
+    @SerializedName("image")
     private String image_path;
     @SerializedName("timespans")
     private String timeSpanString;
