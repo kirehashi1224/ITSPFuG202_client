@@ -38,11 +38,13 @@
             </LinearLayout>
 
 
-            <ImageView
+            <com.sherlockshi.widget.AspectRatioImageView
                 android:id="@+id/detail_shop_image"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:width_ratio="1"
+                app:height_ratio="1"
                 android:scaleType="fitCenter"
                 android:src="@drawable/default_shop" />
         </LinearLayout>
