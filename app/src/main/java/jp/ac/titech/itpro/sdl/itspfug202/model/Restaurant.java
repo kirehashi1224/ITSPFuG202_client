@@ -1,7 +1,5 @@
 package jp.ac.titech.itpro.sdl.itspfug202.model;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
