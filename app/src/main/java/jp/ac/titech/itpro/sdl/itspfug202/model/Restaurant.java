@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Date;
 
 public class Restaurant implements Serializable{
 
@@ -18,7 +17,6 @@ public class Restaurant implements Serializable{
     private String timeSpanString;
 
     private TimeSpanList timeSpanList;
-    //private String openTime;
     public int getid() {
         return id;
     }
@@ -101,9 +99,8 @@ public class Restaurant implements Serializable{
                 ", image_path='" + image_path + '\'' +
                 '}';
 }
-    // TODO:isOpen()
+    // TODO: isOpen()
 
-    //public List<Date>
     public class TimeSpanList implements Serializable{
         private List<TimeSpan>[] ls;
         public TimeSpanList(int wc) {
@@ -122,7 +119,7 @@ public class Restaurant implements Serializable{
     class Time implements Serializable{
         int hour;
         int minute;
-        Time(int hour,int minute){
+        Time(int hour, int minute){
             this.hour = hour;
             this.minute = minute;
         }
