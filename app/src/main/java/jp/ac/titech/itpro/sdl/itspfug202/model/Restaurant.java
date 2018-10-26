@@ -98,7 +98,8 @@ public class Restaurant implements Serializable{
                 ", address='" + address + '\'' +
                 ", image_path='" + image_path + '\'' +
                 '}';
-}
+    }
+
     // TODO: isOpen()
 
     public class TimeSpanList implements Serializable{
