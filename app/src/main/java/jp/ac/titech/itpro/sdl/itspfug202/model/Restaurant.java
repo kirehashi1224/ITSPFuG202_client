@@ -65,21 +65,26 @@ public class Restaurant implements Serializable{
 
     public String getTimeSpan(DayOfWeek dw) {
         if (timeSpanList == null) {
-            String[] times = timeSpanString.split("\\|");
+            if (timeSpanString == null || timeSpanString.length() < 1 || timeSpanString.indexOf('?') != -1) {
+                return "準備中";
+            }
+            String[] times = timeSpanString.split("\\|", -1);
             this.timeSpanList = new TimeSpanList(times.length);
             for (int i = 0; i < times.length; i++) {
-                String[] spans = times[i].split("/");
-                for (int j = 0; j < spans.length; j++) {
-                    String[] time = spans[j].split(";");
+                String[] spans = times[i].split("/", -1);
+                for (String span : spans) {
+                    String[] time = span.split(";", -1);
                     if (time.length != 2) continue;
-                    String[] begin = time[0].split(":");
-                    String[] end = time[1].split(":");
-                    this.timeSpanList.setTimespanList(DayOfWeek.values()[i], new TimeSpan(new Time(Integer.parseInt(begin[0]), Integer.parseInt(begin[1])), new Time(Integer.parseInt(end[0]), Integer.parseInt(end[1]))));
+                    String[] begin = time[0].split(":", -1);
+                    String[] end = time[1].split(":", -1);
+                    try {
+                        this.timeSpanList.setTimeSpanList(DayOfWeek.values()[i], new TimeSpan(new Time(Integer.parseInt(begin[0]), Integer.parseInt(begin[1])), new Time(Integer.parseInt(end[0]), Integer.parseInt(end[1]))));
+                    } catch (NumberFormatException e) { }
                 }
             }
         }
-        List<TimeSpan> lis = timeSpanList.getTimespanList(dw);
-        if (lis.size() == 0) return "定休日";
+        List<TimeSpan> lis = timeSpanList.getTimeSpanList(dw);
+        if (lis == null || lis.size() == 0) return "定休日";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lis.size(); ++i) {
             if (i > 0) sb.append(" / ");
@@ -104,52 +109,14 @@ public class Restaurant implements Serializable{
         public TimeSpanList(int wc) {
             ls = new List[wc];
             for (int i = 0; i < wc; ++i) {
-                ls[i] = new ArrayList<TimeSpan>();
+                ls[i] = new ArrayList<>();
             }
         }
-        public List<TimeSpan> getTimespanList(DayOfWeek dw){
-            switch (dw){
-                case MONDAY:
-                    return ls[0];
-                case TUESDAY:
-                    return ls[1];
-                case WEDNESDAY:
-                    return ls[2];
-                case THURSDAY:
-                    return ls[3];
-                case FRIDAY:
-                    return ls[4];
-                case SATURDAY:
-                    return ls[5];
-                case SUNDAY:
-                    return ls[6];
-                default: return null;
-            }
+        public List<TimeSpan> getTimeSpanList(DayOfWeek dw){
+            return (dw.getOrd() < ls.length) ? ls[dw.getOrd()] : null;
         }
-        public void setTimespanList(DayOfWeek dw, TimeSpan sp){
-            switch (dw){
-                case MONDAY:
-                    ls[0].add(sp);
-                    break;
-                case TUESDAY:
-                    ls[1].add(sp);
-                    break;
-                case WEDNESDAY:
-                    ls[2].add(sp);
-                    break;
-                case THURSDAY:
-                    ls[3].add(sp);
-                    break;
-                case FRIDAY:
-                    ls[4].add(sp);
-                    break;
-                case SATURDAY:
-                    ls[5].add(sp);
-                    break;
-                case SUNDAY:
-                    ls[6].add(sp);
-                    break;
-            }
+        public void setTimeSpanList(DayOfWeek dw, TimeSpan sp){
+            if (dw.getOrd() < ls.length) ls[dw.getOrd()].add(sp);
         }
     }
     class Time implements Serializable{
@@ -165,7 +132,27 @@ public class Restaurant implements Serializable{
         }
     }
     public enum DayOfWeek implements Serializable{
-        SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY
+        MONDAY(0, "月"),
+        TUESDAY(1, "火"),
+        WEDNESDAY(2, "水"),
+        THURSDAY(3, "木"),
+        FRIDAY(4, "金"),
+        SATURDAY(5, "土"),
+        SUNDAY(6, "日");
+
+        private int ord;
+        private String label;
+        DayOfWeek(int ord, String label) {
+            this.ord = ord;
+            this.label = label;
+        }
+
+        int getOrd() {
+            return ord;
+        }
+        String getLabel() {
+            return label;
+        }
     }
     class TimeSpan implements Serializable{
         Time open;
