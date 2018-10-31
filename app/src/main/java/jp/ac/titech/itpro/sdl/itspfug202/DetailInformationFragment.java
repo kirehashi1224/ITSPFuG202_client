@@ -1,7 +1,10 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +29,20 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailInformationFragment extends Fragment {
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
+        context = activity.getApplicationContext();
+    }
 
     public DetailInformationFragment(){
     }
@@ -83,7 +100,7 @@ public class DetailInformationFragment extends Fragment {
 
                     // Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/oppai.png").into(detailShopImage);
                     if(restaurant.getImage_path() != null && restaurant.getImage_path().length() > 0){
-                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).placeholder(getContext().getResources().getDrawable(R.drawable.default_shop)).into(detailShopImage);
+                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).placeholder(context.getResources().getDrawable(R.drawable.default_shop)).into(detailShopImage);
                     }
 
                     //map_buttonの動作
