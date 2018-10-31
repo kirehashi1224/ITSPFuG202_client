@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "665199901904",
+    "firebase_url": "https://fug202-e1f3d.firebaseio.com",
+    "project_id": "fug202-e1f3d",
+    "storage_bucket": "fug202-e1f3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665199901904:android:7017c050895295c4",
+        "android_client_info": {
+          "package_name": "jp.ac.titech.itpro.sdl.itspfug202"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665199901904-37ue2jkiapti42g3a8kr9su2kf1sbcm9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jp.ac.titech.itpro.sdl.itspfug202",
+            "certificate_hash": "5ec3ebe986dc674a632d2666a41fcb6a292de1cb"
+          }
+        },
+        {
+          "client_id": "665199901904-i06hltl1s2mpup0tfm5r80ne2ei5npnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0GYdxAVp4OHi-8z1Iz6g97q79VbkzGAk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665199901904-i06hltl1s2mpup0tfm5r80ne2ei5npnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
