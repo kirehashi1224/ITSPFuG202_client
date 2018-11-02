@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchResultActivity">
-
+    <!--
+    検索結果の画面で検索はしない
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
@@ -19,6 +20,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    -->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/result_recycler"
@@ -29,7 +31,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view" />
+        app:layout_constraintBottom_toTopOf="@id/result_recycler" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
