@@ -124,7 +124,7 @@ public class DetailInformationFragment extends Fragment {
                 Log.d("SearchResultActivity","onResponse_Failure");
                 Toast.makeText(context , "ネットワークに接続されていません" , Toast.LENGTH_SHORT).show();
                 try {
-                    getActivity().finish();
+                    ((Activity)context).finish();
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
