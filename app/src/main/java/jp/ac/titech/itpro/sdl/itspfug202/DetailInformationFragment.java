@@ -121,7 +121,13 @@ public class DetailInformationFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-
+                Log.d("SearchResultActivity","onResponse_Failure");
+                Toast.makeText(context , "ネットワークに接続されていません" , Toast.LENGTH_SHORT).show();
+                try {
+                    ((Activity)context).finish();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
         });
 
