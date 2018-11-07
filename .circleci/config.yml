@@ -26,6 +26,15 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: update android sdk
+          command: |
+              echo y | android update sdk --no-ui --all --filter tool,extra-android-m2repository,extra-google-google_play_services,extra-google-m2repository,android-27
+              echo y | android update sdk --no-ui --all --filter build-tools-27.0.0
+
+      - run:
+          name: chmod permissions
+          command: chmod +x ./gradlew
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
