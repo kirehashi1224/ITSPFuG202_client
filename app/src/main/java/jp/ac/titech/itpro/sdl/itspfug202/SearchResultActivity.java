@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-
+                Log.d("SearchResultActivity","onResponse_Failure");
+                Toast.makeText(getApplicationContext() , "ネットワークに接続されていません" , Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
