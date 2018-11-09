@@ -106,7 +106,7 @@ public class Restaurant implements Serializable{
         return isOpen(DayOfWeek.convertFromCalendar(now), new Time(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE)));
     }
 
-    private boolean isOpen(DayOfWeek week, Time time) {
+    public boolean isOpen(DayOfWeek week, Time time) {
         return containTime(timeSpanList.getTimeSpanList(week), time)
                 || containTime(timeSpanList.getTimeSpanList(week.prev()), new Time(time.hour + 24, time.minute));
     }
@@ -135,10 +135,10 @@ public class Restaurant implements Serializable{
             if (dw != null && dw.getOrd() < ls.length) ls[dw.getOrd()].add(sp);
         }
     }
-    class Time implements Serializable{
+    public class Time implements Serializable{
         int hour;
         int minute;
-        Time(int hour, int minute){
+        public Time(int hour, int minute){
             this.hour = hour;
             this.minute = minute;
         }
@@ -189,7 +189,7 @@ public class Restaurant implements Serializable{
             }
         }
 
-        private static DayOfWeek[] ALL = { MONDAY, SUNDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY };
+        private static DayOfWeek[] ALL = { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY };
         static DayOfWeek get(int ord) {
             return ALL[ord];
         }
@@ -200,10 +200,10 @@ public class Restaurant implements Serializable{
             return get((ord + 6) % ALL.length);
         }
     }
-    class TimeSpan implements Serializable{
+    public class TimeSpan implements Serializable{
         Time open;
         Time close;
-        TimeSpan(Time open, Time close){
+        public TimeSpan(Time open, Time close){
             this.open = open;
             this.close = close;
         }
