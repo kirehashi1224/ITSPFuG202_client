@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Restaurant implements Serializable{
@@ -100,7 +101,24 @@ public class Restaurant implements Serializable{
                 '}';
     }
 
-    // TODO: isOpen()
+    public boolean isOpen() {
+        final Calendar now = Calendar.getInstance();
+        return isOpen(DayOfWeek.convertFromCalendar(now), new Time(now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE)));
+    }
+
+    private boolean isOpen(DayOfWeek week, Time time) {
+        return containTime(timeSpanList.getTimeSpanList(week), time)
+                || containTime(timeSpanList.getTimeSpanList(week.prev()), new Time(time.hour + 24, time.minute));
+    }
+
+    private boolean containTime(List<TimeSpan> timeSpans, Time time) {
+        if (timeSpans == null) return false;
+        for (TimeSpan timespan: timeSpans)
+            if (timespan.open.compareTo(time) <= 0 && timespan.close.compareTo(time) >= 0)
+                return true;
+
+        return false;
+    }
 
     public class TimeSpanList implements Serializable{
         private List<TimeSpan>[] ls;
@@ -111,10 +129,10 @@ public class Restaurant implements Serializable{
             }
         }
         public List<TimeSpan> getTimeSpanList(DayOfWeek dw){
-            return (dw.getOrd() < ls.length) ? ls[dw.getOrd()] : null;
+            return (dw != null && dw.getOrd() < ls.length) ? ls[dw.getOrd()] : null;
         }
         public void setTimeSpanList(DayOfWeek dw, TimeSpan sp){
-            if (dw.getOrd() < ls.length) ls[dw.getOrd()].add(sp);
+            if (dw != null && dw.getOrd() < ls.length) ls[dw.getOrd()].add(sp);
         }
     }
     class Time implements Serializable{
@@ -127,6 +145,12 @@ public class Restaurant implements Serializable{
         @Override
         public String toString() {
             return String.format("%d:%02d", hour, minute);
+        }
+
+        public int compareTo(Time time) {
+            if (Integer.compare(hour, time.hour) != 0)
+                return Integer.compare(hour, time.hour);
+            return Integer.compare(minute, time.minute);
         }
     }
     public enum DayOfWeek implements Serializable{
@@ -150,6 +174,30 @@ public class Restaurant implements Serializable{
         }
         String getLabel() {
             return label;
+        }
+
+        static DayOfWeek convertFromCalendar(Calendar calendar) {
+            switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+                case Calendar.SUNDAY:    return SUNDAY;
+                case Calendar.MONDAY:    return MONDAY;
+                case Calendar.TUESDAY:   return TUESDAY;
+                case Calendar.WEDNESDAY: return WEDNESDAY;
+                case Calendar.THURSDAY:  return THURSDAY;
+                case Calendar.FRIDAY:    return FRIDAY;
+                case Calendar.SATURDAY:  return SATURDAY;
+                default:                 return null;
+            }
+        }
+
+        private static DayOfWeek[] ALL = { MONDAY, SUNDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY };
+        static DayOfWeek get(int ord) {
+            return ALL[ord];
+        }
+        DayOfWeek next() {
+            return get((ord + 1) % ALL.length);
+        }
+        DayOfWeek prev() {
+            return get((ord + 6) % ALL.length);
         }
     }
     class TimeSpan implements Serializable{
