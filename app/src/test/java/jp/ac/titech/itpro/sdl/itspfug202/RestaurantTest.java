@@ -33,5 +33,7 @@ public class RestaurantTest {
         Assert.assertFalse(restaurant.isOpen(DayOfWeek.FRIDAY, new Restaurant().new Time(0, 59)));
         Assert.assertFalse(restaurant.isOpen(DayOfWeek.FRIDAY, new Restaurant().new Time(2, 1)));
         Assert.assertTrue(restaurant.isOpen(DayOfWeek.FRIDAY, new Restaurant().new Time(1, 0)));
+        // failed
+        Assert.assertTrue(restaurant.isOpen(DayOfWeek.FRIDAY, new Restaurant().new Time(3, 0)));
     }
 }
