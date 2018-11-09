@@ -14,8 +14,8 @@ import java.io.Serializable;
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
 
 public class RestaurantDetailActivity extends AppCompatActivity implements Serializable {
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    Bundle bundle;
+    DetailFragmentPagerAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result_detail);
 
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
         // SearchResultActivityからの遷移
         Restaurant myRestaurant = (Restaurant)getIntent().getSerializableExtra("restaurant");
         if(myRestaurant != null){
@@ -35,11 +35,11 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         }
 
         // 詳細画面の表示
-        DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager(), bundle);
-        viewPager = findViewById(R.id.DetailviewPager);
+        adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager(), bundle);
+        ViewPager viewPager = findViewById(R.id.DetailviewPager);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
-        tabLayout = findViewById(R.id.DetailtabLayout);
+        TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
         //redraw_buttonの動作
@@ -47,11 +47,9 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         redrawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle newBundle = new Bundle();
-                newBundle.putString("random", "true");
-                DetailFragmentPagerAdapter newAdapter = new DetailFragmentPagerAdapter(getSupportFragmentManager(), newBundle);
-                viewPager.setAdapter(newAdapter);
-                tabLayout.setupWithViewPager(viewPager);
+                bundle.clear();
+                bundle.putString("random", "true");
+                adapter.notifyDataSetChanged();
             }
         });
     }
