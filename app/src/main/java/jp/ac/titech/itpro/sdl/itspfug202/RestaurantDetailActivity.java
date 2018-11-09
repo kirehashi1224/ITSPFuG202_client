@@ -6,12 +6,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.io.Serializable;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
 
 public class RestaurantDetailActivity extends AppCompatActivity implements Serializable {
+    TabLayout tabLayout;
+    ViewPager viewPager;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d("SearchResultDetail","onCreate");
@@ -31,10 +36,23 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
 
         // 詳細画面の表示
         DetailFragmentPagerAdapter adapter = new DetailFragmentPagerAdapter(getSupportFragmentManager(), bundle);
-        ViewPager viewPager = findViewById(R.id.DetailviewPager);
+        viewPager = findViewById(R.id.DetailviewPager);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
-        TabLayout tabLayout = findViewById(R.id.DetailtabLayout);
+        tabLayout = findViewById(R.id.DetailtabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        //redraw_buttonの動作
+        Button redrawButton = findViewById(R.id.redraw_button);
+        redrawButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle newBundle = new Bundle();
+                newBundle.putString("random", "true");
+                DetailFragmentPagerAdapter newAdapter = new DetailFragmentPagerAdapter(getSupportFragmentManager(), newBundle);
+                viewPager.setAdapter(newAdapter);
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
     }
 }

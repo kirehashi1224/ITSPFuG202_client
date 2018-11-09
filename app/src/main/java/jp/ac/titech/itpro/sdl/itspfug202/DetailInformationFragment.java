@@ -131,16 +131,6 @@ public class DetailInformationFragment extends Fragment {
             }
         });
 
-        //redraw_buttonの動作
-        Button redrawButton = view.findViewById(R.id.redraw_button);
-        redrawButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
-                intent.putExtra("random", "true");
-                startActivity(intent);
-            }
-        });
         return view;
     }
 
