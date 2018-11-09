@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +64,7 @@ public class DetailInformationFragment extends Fragment {
         final TextView sundayTime = view.findViewById(R.id.sunday_time);
         final Button mapButton = view.findViewById(R.id.map_button);
         final TextView detailIsOpen = view.findViewById(R.id.detail_isopen);
+        final ImageButton tweetResultButton = view.findViewById(R.id.tweet_result_button);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_ADDRESS)
@@ -112,6 +114,19 @@ public class DetailInformationFragment extends Fragment {
                         public void onClick(View v) {
                             Uri uri = Uri.parse("geo:0,0?q="+restaurant.getAddress());
                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
+                        }
+                    });
+
+                    // ツイート結果をツイートするボタン
+                    tweetResultButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v){
+                            String url = getString(R.string.twitter_share_url);
+                            String text = "今日の飯は"+restaurant.getName()+"!!";
+                            String hashTag = getString(R.string.app_name);
+                            String fullUrl = url + "?text=" + text + "&hashtags=" + hashTag;
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
                             startActivity(intent);
                         }
                     });
