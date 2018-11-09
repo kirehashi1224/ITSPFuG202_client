@@ -77,7 +77,9 @@ public class Restaurant implements Serializable{
                     String[] begin = time[0].split(":", -1);
                     String[] end = time[1].split(":", -1);
                     try {
-                        this.timeSpanList.setTimeSpanList(DayOfWeek.values()[i], new TimeSpan(new Time(Integer.parseInt(begin[0]), Integer.parseInt(begin[1])), new Time(Integer.parseInt(end[0]), Integer.parseInt(end[1]))));
+                        this.timeSpanList.setTimeSpanList(DayOfWeek.get(i),
+                                new TimeSpan(new Time(Integer.parseInt(begin[0]), Integer.parseInt(begin[1])),
+                                             new Time(Integer.parseInt(end[0]), Integer.parseInt(end[1]))));
                     } catch (NumberFormatException e) { }
                 }
             }
@@ -162,8 +164,8 @@ public class Restaurant implements Serializable{
         SATURDAY(5, "土"),
         SUNDAY(6, "日");
 
-        private int ord;
-        private String label;
+        private final int ord;
+        private final String label;
         DayOfWeek(int ord, String label) {
             this.ord = ord;
             this.label = label;
@@ -189,9 +191,17 @@ public class Restaurant implements Serializable{
             }
         }
 
-        private static DayOfWeek[] ALL = { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY };
+        private static final DayOfWeek[] ALL = new Object(){
+            DayOfWeek[] run() {
+                DayOfWeek[] arr = new DayOfWeek[DayOfWeek.values().length];
+                for (DayOfWeek dayOfWeek: DayOfWeek.values())
+                    arr[dayOfWeek.ord] = dayOfWeek;
+                return arr;
+            }
+        }.run();
+
         static DayOfWeek get(int ord) {
-            return ALL[ord];
+            return (ord >= 0 && ord < ALL.length) ? ALL[ord] : null;
         }
         DayOfWeek next() {
             return get((ord + 1) % ALL.length);
