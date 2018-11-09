@@ -20,6 +20,5 @@
     <string name="random_button">押</string>
     <string name="redraw_button">この店は嫌じゃ！</string>
     <string name="map_button">地図</string>
-    <string name="tweet_result_text">結果をツイートする</string>
     <string name="twitter_share_url">https://twitter.com/share</string>
 </resources>
