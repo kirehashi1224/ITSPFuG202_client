@@ -197,7 +197,7 @@ public class Restaurant implements Serializable{
             return get((ord + 1) % ALL.length);
         }
         DayOfWeek prev() {
-            return get((ord + 6) % ALL.length);
+            return get((ord + ALL.length - 1) % ALL.length);
         }
     }
     public class TimeSpan implements Serializable{
