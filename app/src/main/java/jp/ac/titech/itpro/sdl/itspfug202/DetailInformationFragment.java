@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class DetailInformationFragment extends Fragment {
         final TextView saturdayTime = view.findViewById(R.id.saturday_time);
         final TextView sundayTime = view.findViewById(R.id.sunday_time);
         final Button mapButton = view.findViewById(R.id.map_button);
+        final ImageButton tweetResultButton = view.findViewById(R.id.tweet_result_button);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_ADDRESS)
@@ -112,6 +114,19 @@ public class DetailInformationFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
+
+                    // ツイート結果をツイートするボタン
+                    tweetResultButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v){
+                            String url = getString(R.string.twitter_share_url);
+                            String text = "今日の飯は"+restaurant.getName()+"!!";
+                            String hashTag = getString(R.string.app_name);
+                            String fullUrl = url + "?text=" + text + "&hashtags=" + hashTag;
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
+                            startActivity(intent);
+                        }
+                    });
                 }else{
                     Toast.makeText(getActivity(), "該当する店が存在しません", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -121,20 +136,16 @@ public class DetailInformationFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Restaurant>> call, Throwable t) {
-
+                Log.d("SearchResultActivity","onResponse_Failure");
+                Toast.makeText(context , "ネットワークに接続されていません" , Toast.LENGTH_SHORT).show();
+                try {
+                    ((Activity)context).finish();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
         });
 
-        //redraw_buttonの動作
-        Button redrawButton = view.findViewById(R.id.redraw_button);
-        redrawButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
-                intent.putExtra("random", "true");
-                startActivity(intent);
-            }
-        });
         return view;
     }
 
