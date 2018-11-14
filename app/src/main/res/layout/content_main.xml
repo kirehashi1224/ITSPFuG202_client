@@ -10,18 +10,22 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
 
-    <Button
+    <ImageButton
         android:id="@+id/randomButton"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/random_button"
-        android:textSize="160sp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        app:srcCompat="@drawable/gatya"
         app:layout_constraintBottom_toTopOf="@+id/mainGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <android.support.constraint.Guideline
         android:id="@+id/mainGuideline"

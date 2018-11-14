@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="search_button">検索</string>
     <string name="detail_unknown">未記入</string>
-    <string name="detail_address">住所：</string>
+    <string name="detail_address">住所</string>
     <string name="detail_timespan">営業時間</string>
     <string name="detail_monday">月：</string>
     <string name="detail_tuesday">火：</string>
@@ -17,8 +17,9 @@
     <string name="detail_friday">金：</string>
     <string name="detail_saturday">土：</string>
     <string name="detail_sunday">日：</string>
-    <string name="random_button">押</string>
     <string name="redraw_button">この店は嫌じゃ！</string>
     <string name="map_button">地図</string>
     <string name="twitter_share_url">https://twitter.com/share</string>
+    <string name="shopOpen">営業中</string>
+    <string name="shopClose">準備中</string>
 </resources>
