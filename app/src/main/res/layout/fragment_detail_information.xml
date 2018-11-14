@@ -126,6 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_address"
+                android:textSize="20sp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@id/shop_abstract_layout"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -134,9 +135,10 @@
                 android:id="@+id/detail_shop_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
                 android:text="@string/detail_unknown"
-                app:layout_constraintTop_toTopOf="@id/text_detail_address"
-                app:layout_constraintStart_toEndOf="@id/text_detail_address"
+                app:layout_constraintTop_toBottomOf="@id/text_detail_address"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
@@ -145,129 +147,104 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/detail_timespan"
+                android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/detail_shop_address"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="20sp" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:id="@+id/text_detail_monday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/detail_monday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_opening_hours" />
-            <TextView
-                android:id="@+id/monday_time"
+            <TableLayout
+                android:id="@+id/opening_hours_table"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_monday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_monday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
-
-            <TextView
-                android:id="@+id/text_detail_tuesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:stretchColumns="1"
                 android:layout_marginStart="10dp"
-                android:text="@string/detail_tuesday"
+                app:layout_constraintTop_toBottomOf="@id/text_opening_hours"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_detail_monday" />
-            <TextView
-                android:id="@+id/tuesday_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_tuesday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_tuesday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
-
-            <TextView
-                android:id="@+id/text_detail_wednesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/detail_wednesday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_detail_tuesday" />
-            <TextView
-                android:id="@+id/wednesday_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_wednesday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_wednesday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
-
-            <TextView
-                android:id="@+id/text_detail_thursday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/detail_thursday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_detail_wednesday" />
-            <TextView
-                android:id="@+id/thursday_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_thursday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_thursday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
-
-            <TextView
-                android:id="@+id/text_detail_friday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/detail_friday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_detail_thursday" />
-            <TextView
-                android:id="@+id/friday_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_friday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_friday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
-
-            <TextView
-                android:id="@+id/text_detail_saturday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/detail_saturday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_detail_friday" />
-            <TextView
-                android:id="@+id/saturday_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_saturday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_saturday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
-
-            <TextView
-                android:id="@+id/text_detail_sunday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/detail_sunday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_detail_saturday" />
-            <TextView
-                android:id="@+id/sunday_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_detail_sunday"
-                app:layout_constraintStart_toEndOf="@id/text_detail_sunday"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/detail_unknown" />
+                app:layout_constraintEnd_toEndOf="parent">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_monday" />
+                    <TextView
+                        android:id="@+id/monday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_tuesday" />
+                    <TextView
+                        android:id="@+id/tuesday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_wednesday" />
+                    <TextView
+                        android:id="@+id/wednesday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_thursday" />
+                    <TextView
+                        android:id="@+id/thursday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_friday" />
+                    <TextView
+                        android:id="@+id/friday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_saturday" />
+                    <TextView
+                        android:id="@+id/saturday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/text_detail_sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_sunday" />
+                    <TextView
+                        android:id="@+id/sunday_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_unknown" />
+                </TableRow>
+            </TableLayout>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </RelativeLayout>
