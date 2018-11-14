@@ -3,11 +3,15 @@ package jp.ac.titech.itpro.sdl.itspfug202;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,6 +93,7 @@ public class DetailInformationFragment extends Fragment {
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
                 Log.d("SearchResultActivity","onResponse");
                 List<Restaurant> restaurantList = response.body();
+                Resources res = context.getResources();
                 if(restaurantList.size() >= 1){
                     final Restaurant restaurant = restaurantList.get(0);
                     detailName.setText(restaurant.getName());
@@ -101,11 +106,22 @@ public class DetailInformationFragment extends Fragment {
                     saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
                     sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
                     // これね、文字列定数は string.xml で定義すべき
-                    detailIsOpen.setText(restaurant.isOpen() ? "営業中" : "閉店中");
+                    GradientDrawable background = new GradientDrawable();
+                    background.mutate();
+                    background.setShape(GradientDrawable.RECTANGLE);
+                    background.setCornerRadius(convertDp2Px(8, context));
+                    if(restaurant.isOpen()){
+                        detailIsOpen.setText(getText(R.string.shopOpen));
+                        background.setColor(res.getColor(R.color.green));
+                    }else{
+                        detailIsOpen.setText(getText(R.string.shopClose));
+                        background.setColor(res.getColor(R.color.gray));
+                    }
+                    detailIsOpen.setBackground(background);
 
                     // Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/oppai.png").into(detailShopImage);
                     if(restaurant.getImage_path() != null && restaurant.getImage_path().length() > 0){
-                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).placeholder(context.getResources().getDrawable(R.drawable.default_shop)).into(detailShopImage);
+                        Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/" + restaurant.getImage_path()).placeholder(res.getDrawable(R.drawable.default_shop)).into(detailShopImage);
                     }
 
                     //map_buttonの動作
@@ -155,5 +171,27 @@ public class DetailInformationFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    /**
+     * dpからpixelへの変換
+     * @param dp
+     * @param context
+     * @return float pixel
+     */
+    public static float convertDp2Px(float dp, Context context){
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return dp * metrics.density;
+    }
+
+
+    /** pixelからdpへの変換
+     * @param px
+     * @param context
+     * @return float dp
+     */
+    public static float convertPx2Dp(float px, Context context){
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return px / metrics.density;
     }
 }
