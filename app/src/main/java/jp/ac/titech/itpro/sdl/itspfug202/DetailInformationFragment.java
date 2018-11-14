@@ -190,7 +190,7 @@ public class DetailInformationFragment extends Fragment {
      * @param context
      * @return float dp
      */
-    public static float convertPx2Dp(int px, Context context){
+    public static float convertPx2Dp(float px, Context context){
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return px / metrics.density;
     }
