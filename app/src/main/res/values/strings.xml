@@ -21,4 +21,6 @@
     <string name="redraw_button">この店は嫌じゃ！</string>
     <string name="map_button">地図</string>
     <string name="twitter_share_url">https://twitter.com/share</string>
+    <string name="shopOpen">営業中</string>
+    <string name="shopClose">準備中</string>
 </resources>
