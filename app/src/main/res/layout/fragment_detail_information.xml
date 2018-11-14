@@ -135,7 +135,7 @@
                 android:id="@+id/detail_shop_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
+                android:layout_marginStart="10dp"
                 android:text="@string/detail_unknown"
                 app:layout_constraintTop_toBottomOf="@id/text_detail_address"
                 app:layout_constraintStart_toStartOf="parent"
