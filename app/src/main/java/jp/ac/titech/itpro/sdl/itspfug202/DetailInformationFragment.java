@@ -63,6 +63,7 @@ public class DetailInformationFragment extends Fragment {
         final TextView saturdayTime = view.findViewById(R.id.saturday_time);
         final TextView sundayTime = view.findViewById(R.id.sunday_time);
         final Button mapButton = view.findViewById(R.id.map_button);
+        final TextView detailIsOpen = view.findViewById(R.id.detail_isopen);
         final ImageButton tweetResultButton = view.findViewById(R.id.tweet_result_button);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -99,6 +100,8 @@ public class DetailInformationFragment extends Fragment {
                     fridayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.FRIDAY));
                     saturdayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SATURDAY));
                     sundayTime.setText(restaurant.getTimeSpan(Restaurant.DayOfWeek.SUNDAY));
+                    // これね、文字列定数は string.xml で定義すべき
+                    detailIsOpen.setText(restaurant.isOpen() ? "営業中" : "閉店中");
 
                     // Picasso.get().load(BuildConfig.ROOT_ADDRESS + "media/oppai.png").into(detailShopImage);
                     if(restaurant.getImage_path() != null && restaurant.getImage_path().length() > 0){
