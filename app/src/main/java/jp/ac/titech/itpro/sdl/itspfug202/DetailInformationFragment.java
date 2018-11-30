@@ -110,12 +110,14 @@ public class DetailInformationFragment extends Fragment {
                     background.mutate();
                     background.setShape(GradientDrawable.RECTANGLE);
                     background.setCornerRadius(convertDp2Px(8, context));
-                    if(restaurant.isOpen()){
-                        detailIsOpen.setText(getText(R.string.shopOpen));
-                        background.setColor(res.getColor(R.color.green));
-                    }else{
-                        detailIsOpen.setText(getText(R.string.shopClose));
-                        background.setColor(res.getColor(R.color.gray));
+                    if(isAdded()){
+                        if(restaurant.isOpen()){
+                            detailIsOpen.setText(getText(R.string.shopOpen));
+                            background.setColor(res.getColor(R.color.green));
+                        }else{
+                            detailIsOpen.setText(getText(R.string.shopClose));
+                            background.setColor(res.getColor(R.color.gray));
+                        }
                     }
                     detailIsOpen.setBackground(background);
 
@@ -138,12 +140,14 @@ public class DetailInformationFragment extends Fragment {
                     tweetResultButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v){
-                            String url = getString(R.string.twitter_share_url);
-                            String text = "今日の飯は"+restaurant.getName()+"!!";
-                            String hashTag = getString(R.string.app_name);
-                            String fullUrl = url + "?text=" + text + "&hashtags=" + hashTag;
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
-                            startActivity(intent);
+                            if(isAdded()){
+                                String url = getString(R.string.twitter_share_url);
+                                String text = "今日の飯は"+restaurant.getName()+"!!";
+                                String hashTag = getString(R.string.app_name);
+                                String fullUrl = url + "?text=" + text + "&hashtags=" + hashTag;
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl));
+                                startActivity(intent);
+                            }
                         }
                     });
                 }else{
