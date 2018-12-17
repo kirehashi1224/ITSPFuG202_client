@@ -15,6 +15,7 @@ public class LargeImageDialogFragment extends DialogFragment {
     private AlertDialog.Builder dialogBuilder;
     public ImageView shop_image;
 
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialogBuilder = new AlertDialog.Builder(getActivity());
 
@@ -28,6 +29,8 @@ public class LargeImageDialogFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+        detail_shop_image.setScaleType(ImageView.ScaleType.FIT_XY);
+        detail_shop_image.setAdjustViewBounds(true);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
