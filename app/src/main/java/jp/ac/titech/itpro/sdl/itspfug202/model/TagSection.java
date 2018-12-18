@@ -5,9 +5,16 @@ import java.util.List;
 
 public class TagSection {
     public enum TagType{
-        PriceTag,
-        GenreTag,
-        DistanceTag
+        PriceTag("価格帯"),
+        GenreTag("ジャンル"),
+        DistanceTag("東工大からの所要時間");
+        private String label;
+        TagType(String label){
+            this.label = label;
+        }
+        public String getLabel(){
+            return this.label;
+        }
     }
 
     private String mSectionText;
