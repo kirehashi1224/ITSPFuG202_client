@@ -1,5 +1,6 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -10,12 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
 import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
@@ -27,9 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     Map<TagSection.TagType, TagSection> tagSectionMap = new HashMap<>();
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -41,13 +46,24 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
         Call<List<Tag>> priceTagCall = apiService.getPriceTag();
-        Call<List<Tag>> genreTagCall = apiService.getGenreTag();
-        Call<List<Tag>> distanceTagCall = apiService.getDistanceTag();
+        // Call<List<Tag>> genreTagCall = apiService.getGenreTag();
+        // Call<List<Tag>> distanceTagCall = apiService.getDistanceTag();
+
+        // final CountDownLatch latch = new CountDownLatch(3);
 
         priceTagCall.enqueue(new Callback<List<Tag>>() {
             @Override
             public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
+                Log.d("MainActivity","countdown_price");
                 tagSectionMap.put(TagSection.TagType.PriceTag, new TagSection(response.body()));
+                // test
+                Log.d("MainActivity", String.valueOf(response.body().size()));
+                for(Tag tag : response.body()){
+                    Log.d("MainActivity", tag.getTag());
+                }
+                // latch.countDown();
+                ExpandableListView expandableListView = findViewById(R.id.tag_list);
+                expandableListView.setAdapter(new ExpandableListAdapter(context, tagSectionMap));
             }
 
             @Override
@@ -56,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        genreTagCall.enqueue(new Callback<List<Tag>>() {
+        /*genreTagCall.enqueue(new Callback<List<Tag>>() {
             @Override
             public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
                 tagSectionMap.put(TagSection.TagType.GenreTag, new TagSection(response.body()));
+                latch.countDown();
+                Log.d("MainActivity","countdown_genre");
             }
 
             @Override
@@ -72,13 +90,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
                 tagSectionMap.put(TagSection.TagType.DistanceTag, new TagSection(response.body()));
+                latch.countDown();
+                Log.d("MainActivity","countdown_distance");
             }
 
             @Override
             public void onFailure(Call<List<Tag>> call, Throwable t) {
                 sendNetworkErrorMessage();
             }
-        });
+        });*/
 
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener(){
@@ -100,6 +120,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Log.d("MainActivity","before_await");
+        /*try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+        Log.d("MainActivity","after_await");
+
+
     }
 
     @Override

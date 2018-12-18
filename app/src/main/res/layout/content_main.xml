@@ -16,23 +16,27 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:background="#00000000"
         app:srcCompat="@drawable/gatya"
-        app:layout_constraintBottom_toTopOf="@+id/mainGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
-    <android.support.constraint.Guideline
-        android:id="@+id/mainGuideline"
-        android:layout_width="wrap_content"
+    <ExpandableListView
+        android:id="@+id/tag_list"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/randomButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </ExpandableListView>
+
+
 
     <EditText
         android:id="@+id/searchText"
@@ -46,7 +50,7 @@
         app:layout_constraintEnd_toStartOf="@+id/searchButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainGuideline" />
+        app:layout_constraintTop_toBottomOf="@+id/tag_list" />
 
     <Button
         android:id="@+id/searchButton"
@@ -54,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="@string/search_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/tag_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/searchText" />
 </android.support.constraint.ConstraintLayout>
