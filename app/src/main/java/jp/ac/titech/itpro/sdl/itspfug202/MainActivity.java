@@ -13,11 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import jp.ac.titech.itpro.sdl.itspfug202.model.DistanceTag;
-import jp.ac.titech.itpro.sdl.itspfug202.model.GenreTag;
-import jp.ac.titech.itpro.sdl.itspfug202.model.PriceTag;
+import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
+import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    Map<TagSection.TagType, TagSection> tagSectionMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,42 +40,42 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<PriceTag>> priceTagCall = apiService.getPriceTag();
-        Call<List<GenreTag>> genreTagCall = apiService.getGenreTag();
-        Call<List<DistanceTag>> distanceTagCall = apiService.getDistanceTag();
+        Call<List<Tag>> priceTagCall = apiService.getPriceTag();
+        Call<List<Tag>> genreTagCall = apiService.getGenreTag();
+        Call<List<Tag>> distanceTagCall = apiService.getDistanceTag();
 
-        priceTagCall.enqueue(new Callback<List<PriceTag>>() {
+        priceTagCall.enqueue(new Callback<List<Tag>>() {
             @Override
-            public void onResponse(Call<List<PriceTag>> call, Response<List<PriceTag>> response) {
-                List<PriceTag> priceTagList = response.body();
+            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
+                tagSectionMap.put(TagSection.TagType.PriceTag, new TagSection(response.body()));
             }
 
             @Override
-            public void onFailure(Call<List<PriceTag>> call, Throwable t) {
+            public void onFailure(Call<List<Tag>> call, Throwable t) {
                 sendNetworkErrorMessage();
             }
         });
 
-        genreTagCall.enqueue(new Callback<List<GenreTag>>() {
+        genreTagCall.enqueue(new Callback<List<Tag>>() {
             @Override
-            public void onResponse(Call<List<GenreTag>> call, Response<List<GenreTag>> response) {
-                List<GenreTag> genreTagList = response.body();
+            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
+                tagSectionMap.put(TagSection.TagType.GenreTag, new TagSection(response.body()));
             }
 
             @Override
-            public void onFailure(Call<List<GenreTag>> call, Throwable t) {
+            public void onFailure(Call<List<Tag>> call, Throwable t) {
                 sendNetworkErrorMessage();
             }
         });
 
-        distanceTagCall.enqueue(new Callback<List<DistanceTag>>() {
+        distanceTagCall.enqueue(new Callback<List<Tag>>() {
             @Override
-            public void onResponse(Call<List<DistanceTag>> call, Response<List<DistanceTag>> response) {
-                List<DistanceTag> distanceTagList = response.body();
+            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
+                tagSectionMap.put(TagSection.TagType.DistanceTag, new TagSection(response.body()));
             }
 
             @Override
-            public void onFailure(Call<List<DistanceTag>> call, Throwable t) {
+            public void onFailure(Call<List<Tag>> call, Throwable t) {
                 sendNetworkErrorMessage();
             }
         });

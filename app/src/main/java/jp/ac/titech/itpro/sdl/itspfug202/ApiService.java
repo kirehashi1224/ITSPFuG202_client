@@ -2,10 +2,8 @@ package jp.ac.titech.itpro.sdl.itspfug202;
 
 import java.util.List;
 
-import jp.ac.titech.itpro.sdl.itspfug202.model.DistanceTag;
-import jp.ac.titech.itpro.sdl.itspfug202.model.GenreTag;
-import jp.ac.titech.itpro.sdl.itspfug202.model.PriceTag;
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
+import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -21,11 +19,11 @@ public interface ApiService {
     Call<List<Restaurant>> getRestaurant(@Query("id") int restaurantId);
 
     @GET("price_tags")
-    Call<List<PriceTag>> getPriceTag();
+    Call<List<Tag>> getPriceTag();
 
     @GET("genre_tags")
-    Call<List<GenreTag>> getGenreTag();
+    Call<List<Tag>> getGenreTag();
 
     @GET("distance_tags")
-    Call<List<DistanceTag>> getDistanceTag();
+    Call<List<Tag>> getDistanceTag();
 }
