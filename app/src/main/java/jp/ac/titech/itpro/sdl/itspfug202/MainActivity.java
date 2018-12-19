@@ -18,18 +18,21 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function3;
+import io.reactivex.schedulers.Schedulers;
 import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
 import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    Map<TagSection.TagType, TagSection> tagSectionMap = new HashMap<>();
     private Context context;
 
     @Override
@@ -40,65 +43,53 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Retrofit retrofit = new Retrofit.Builder()
+        ApiService apiService = new Retrofit.Builder()
+                .client(new OkHttpClient())
                 .baseUrl(BuildConfig.API_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<Tag>> priceTagCall = apiService.getPriceTag();
-        // Call<List<Tag>> genreTagCall = apiService.getGenreTag();
-        // Call<List<Tag>> distanceTagCall = apiService.getDistanceTag();
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+                .create(ApiService.class);
+        Observable.zip(
+                apiService.getPriceTag(),
+                apiService.getGenreTag(),
+                apiService.getDistanceTag(),
+                new Function3<List<Tag>, List<Tag>, List<Tag>, Map<TagSection.TagType, TagSection>>() {
+                    @Override
+                    public Map<TagSection.TagType, TagSection> apply(List<Tag> priceTagList
+                            , List<Tag> genreTagList
+                            , List<Tag> distanceTagList) {
+                        Map<TagSection.TagType, TagSection> tagSectionMap = new HashMap<>();
+                        tagSectionMap.put(TagSection.TagType.PriceTag, new TagSection(priceTagList));
+                        tagSectionMap.put(TagSection.TagType.GenreTag, new TagSection(genreTagList));
+                        tagSectionMap.put(TagSection.TagType.DistanceTag, new TagSection(distanceTagList));
+                        return tagSectionMap;
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Map<TagSection.TagType, TagSection>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        // final CountDownLatch latch = new CountDownLatch(3);
+                    }
 
-        priceTagCall.enqueue(new Callback<List<Tag>>() {
-            @Override
-            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
-                Log.d("MainActivity","countdown_price");
-                tagSectionMap.put(TagSection.TagType.PriceTag, new TagSection(response.body()));
-                // test
-                Log.d("MainActivity", String.valueOf(response.body().size()));
-                for(Tag tag : response.body()){
-                    Log.d("MainActivity", tag.getTag());
-                }
-                // latch.countDown();
-                ExpandableListView expandableListView = findViewById(R.id.tag_list);
-                expandableListView.setAdapter(new ExpandableListAdapter(context, tagSectionMap));
-            }
+                    @Override
+                    public void onNext(Map<TagSection.TagType, TagSection> tagSectionMap) {
+                        ExpandableListView expandableListView = findViewById(R.id.tag_list);
+                        expandableListView.setAdapter(new ExpandableListAdapter(context, tagSectionMap));
+                    }
 
-            @Override
-            public void onFailure(Call<List<Tag>> call, Throwable t) {
-                sendNetworkErrorMessage();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        sendNetworkErrorMessage();
+                    }
 
-        /*genreTagCall.enqueue(new Callback<List<Tag>>() {
-            @Override
-            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
-                tagSectionMap.put(TagSection.TagType.GenreTag, new TagSection(response.body()));
-                latch.countDown();
-                Log.d("MainActivity","countdown_genre");
-            }
+                    @Override
+                    public void onComplete() {
 
-            @Override
-            public void onFailure(Call<List<Tag>> call, Throwable t) {
-                sendNetworkErrorMessage();
-            }
-        });
-
-        distanceTagCall.enqueue(new Callback<List<Tag>>() {
-            @Override
-            public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
-                tagSectionMap.put(TagSection.TagType.DistanceTag, new TagSection(response.body()));
-                latch.countDown();
-                Log.d("MainActivity","countdown_distance");
-            }
-
-            @Override
-            public void onFailure(Call<List<Tag>> call, Throwable t) {
-                sendNetworkErrorMessage();
-            }
-        });*/
+                    }
+                });
 
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener(){
@@ -120,13 +111,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Log.d("MainActivity","before_await");
-        /*try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-        Log.d("MainActivity","after_await");
 
 
     }
@@ -142,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private  void sendNetworkErrorMessage(){
-        Log.d("SearchResultActivity","onResponse_Failure");
+        Log.d("MainActivity","onResponse_Failure");
         Toast.makeText(getApplicationContext() , "ネットワークに接続されていません" , Toast.LENGTH_SHORT).show();
     }
 
