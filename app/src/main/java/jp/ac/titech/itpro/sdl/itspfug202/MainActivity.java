@@ -15,6 +15,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
                     public Map<TagSection.TagType, TagSection> apply(List<Tag> priceTagList
                             , List<Tag> genreTagList
                             , List<Tag> distanceTagList) {
+
+                        Collections.sort(priceTagList, new Tag.TagComparator());
+                        Collections.sort(genreTagList, new Tag.TagComparator());
+                        Collections.sort(distanceTagList, new Tag.TagComparator());
                         Map<TagSection.TagType, TagSection> tagSectionMap = new HashMap<>();
                         tagSectionMap.put(TagSection.TagType.PriceTag, new TagSection(priceTagList));
                         tagSectionMap.put(TagSection.TagType.GenreTag, new TagSection(genreTagList));
