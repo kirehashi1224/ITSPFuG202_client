@@ -6,6 +6,15 @@ public class Tag {
     private int id;
     @SerializedName("name")
     private String tag;
+    private boolean isChecked = false;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public int getId() {
         return id;

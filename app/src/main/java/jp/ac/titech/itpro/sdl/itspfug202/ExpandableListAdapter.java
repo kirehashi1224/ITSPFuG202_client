@@ -1,11 +1,13 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -67,31 +69,26 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView text = convertView.findViewById(R.id.expandable_section_text);
         text.setText(TagSection.TagType.values()[groupPosition].getLabel());
-        /*Log.d("ExpandableListAdapter","A");
-        AbsListView.LayoutParams param = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        Log.d("ExpandableListAdapter","B");
-
-        TextView textView = new TextView(context);
-        textView.setLayoutParams(param);
-
-        Log.d("ExpandableListAdapter","C");
-
-        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-        textView.setPadding(0, 0, 0, 0);
-        textView.setText(TagSection.TagType.values()[groupPosition].getLabel());*/
 
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if(convertView == null){
             convertView = inflater.inflate(R.layout.expandable_item, null);
         }
         CheckBox checkBox = convertView.findViewById(R.id.expandable_check_box);
         checkBox.setText(getChild(groupPosition, childPosition).getTag());
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // チェック状態を保存
+                getChild(groupPosition, childPosition).setChecked(isChecked);
+                Log.d("Tag_onCheckedChenged", getChild(groupPosition, childPosition).getTag()+" : "+isChecked);
+            }
+        });
+
         return convertView;
     }
 
