@@ -1,5 +1,9 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
+import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
+import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection.TagType;
+import static jp.ac.titech.itpro.sdl.itspfug202.ExpandableListAdapter.tagSectionMap;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +31,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,17 +76,60 @@ public class DetailInformationFragment extends Fragment {
         final TextView detailIsOpen = view.findViewById(R.id.detail_isopen);
         final ImageButton tweetResultButton = view.findViewById(R.id.tweet_result_button);
 
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .baseUrl(BuildConfig.API_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
         Call<List<Restaurant>> restaurantCall;
+        // チェックボックスの状態からクエリに付与するタグを取得
+        StringBuilder priceQueryBuilder = new StringBuilder();
+        StringBuilder genreQueryBuilder = new StringBuilder();
+        StringBuilder distanceQueryBuilder = new StringBuilder();
+        for(Tag t : tagSectionMap.get(TagType.PriceTag).getTagList()){
+            if(t.isChecked()){
+                if(priceQueryBuilder.length() > 0){
+                    priceQueryBuilder.append("&priceTags=");
+                }
+                priceQueryBuilder.append(t.getId());
+            }
+        }
+        for(Tag t : tagSectionMap.get(TagType.GenreTag).getTagList()){
+            if(t.isChecked()){
+                if(genreQueryBuilder.length() > 0){
+                    genreQueryBuilder.append("&genreTags=");
+                }
+                genreQueryBuilder.append(t.getId());
+            }
+        }
+        for(Tag t : tagSectionMap.get(TagType.DistanceTag).getTagList()){
+            if(t.isChecked()){
+                if(distanceQueryBuilder.length() > 0){
+                    distanceQueryBuilder.append("&distanceTags=");
+                }
+                distanceQueryBuilder.append(t.getId());
+            }
+        }
+        String priceQuery = null, genreQuery = null, distanceQuery = null;
+        if(priceQueryBuilder.length() > 0){
+            priceQuery = priceQueryBuilder.toString();
+        }
+        if(genreQueryBuilder.length() > 0){
+            genreQuery = genreQueryBuilder.toString();
+        }
+        if(distanceQueryBuilder.length() > 0){
+            distanceQuery = distanceQueryBuilder.toString();
+        }
+
         Bundle bundle = getArguments();
         if(bundle == null){
             throw new IllegalStateException("Bundleが空になっています");
         }else if(bundle.containsKey("random")){
-            restaurantCall = apiService.getRandomRestaurants("");
+            restaurantCall = apiService.getRandomRestaurants("", priceQuery, genreQuery, distanceQuery);
         }else if(bundle.containsKey("restaurant")){
             Restaurant restaurant = (Restaurant) getArguments().getSerializable("restaurant");
             Log.d("RestaurantId",String.valueOf(restaurant.getid()));

@@ -16,14 +16,14 @@ import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
 import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
-    private Map<TagSection.TagType, TagSection> tagSectionMap;
+    static Map<TagSection.TagType, TagSection> tagSectionMap;
     private Context context;
     private LayoutInflater inflater;
 
     public ExpandableListAdapter(Context context,
                                  Map<TagSection.TagType, TagSection> tagSectionMap) {
         this.context = context;
-        this.tagSectionMap = tagSectionMap;
+        ExpandableListAdapter.tagSectionMap = tagSectionMap;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
