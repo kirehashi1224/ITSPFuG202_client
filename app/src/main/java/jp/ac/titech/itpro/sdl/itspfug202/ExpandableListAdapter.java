@@ -95,15 +95,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-        /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // チェック状態を保存
-                getChild(groupPosition, childPosition).setChecked(isChecked);
-                Log.d("Tag_onCheckedChenged", getChild(groupPosition, childPosition).getTag()+" : "+isChecked);
-            }
-        });*/
-
         return convertView;
     }
 
