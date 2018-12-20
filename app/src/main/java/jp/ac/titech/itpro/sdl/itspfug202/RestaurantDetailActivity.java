@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.io.Serializable;
 
@@ -43,7 +43,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Seria
         tabLayout.setupWithViewPager(viewPager);
 
         //redraw_buttonの動作
-        Button redrawButton = findViewById(R.id.redraw_button);
+        ImageButton redrawButton = findViewById(R.id.redraw_button);
         redrawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
