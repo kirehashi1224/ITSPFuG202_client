@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
 import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
 import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,48 +33,28 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .client(new OkHttpClient())
                 .baseUrl(BuildConfig.API_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
         // チェックボックスの状態からクエリに付与するタグを取得
-        StringBuilder priceQueryBuilder = new StringBuilder();
-        StringBuilder genreQueryBuilder = new StringBuilder();
-        StringBuilder distanceQueryBuilder = new StringBuilder();
+        List<String> priceQuery = new ArrayList<>();
+        List<String> genreQuery = new ArrayList<>();
+        List<String> distanceQuery = new ArrayList<>();
         for(Tag t : tagSectionMap.get(TagSection.TagType.PriceTag).getTagList()){
             if(t.isChecked()){
-                if(priceQueryBuilder.length() > 0){
-                    priceQueryBuilder.append("&priceTags=");
-                }
-                priceQueryBuilder.append(t.getId());
+                priceQuery.add(String.valueOf(t.getId()));
             }
         }
         for(Tag t : tagSectionMap.get(TagSection.TagType.GenreTag).getTagList()){
             if(t.isChecked()){
-                if(genreQueryBuilder.length() > 0){
-                    genreQueryBuilder.append("&genreTags=");
-                }
-                genreQueryBuilder.append(t.getId());
+                genreQuery.add(String.valueOf(t.getId()));
             }
         }
         for(Tag t : tagSectionMap.get(TagSection.TagType.DistanceTag).getTagList()){
             if(t.isChecked()){
-                if(distanceQueryBuilder.length() > 0){
-                    distanceQueryBuilder.append("&distanceTags=");
-                }
-                distanceQueryBuilder.append(t.getId());
+                distanceQuery.add(String.valueOf(t.getId()));
             }
-        }
-        String priceQuery = null, genreQuery = null, distanceQuery = null;
-        if(priceQueryBuilder.length() > 0){
-            priceQuery = priceQueryBuilder.toString();
-        }
-        if(genreQueryBuilder.length() > 0){
-            genreQuery = genreQueryBuilder.toString();
-        }
-        if(distanceQueryBuilder.length() > 0){
-            distanceQuery = distanceQueryBuilder.toString();
         }
         Call<List<Restaurant>> restaurantsCall = apiService.getRestaurants(intent.getStringExtra("name"),
                                                                             priceQuery,

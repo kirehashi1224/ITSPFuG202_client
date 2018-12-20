@@ -12,15 +12,15 @@ import retrofit2.http.Query;
 public interface ApiService {
     @GET("restaurants")
     Call<List<Restaurant>> getRestaurants(@Query("name") String name,
-                                          @Query(value="priceTags", encoded=true) String priceTag,
-                                          @Query(value="genreTags", encoded=true) String genreTag,
-                                          @Query(value="distanceTags", encoded=true) String distanceTag);
+                                          @Query(value="priceTags") List<String> priceTag,
+                                          @Query(value="genreTags") List<String> genreTag,
+                                          @Query(value="distanceTags") List<String> distanceTag);
 
     @GET("restaurants/?random_extract=true")
     Call<List<Restaurant>> getRandomRestaurants(@Query("name") String name,
-                                                @Query(value="priceTags", encoded=true) String priceTag,
-                                                @Query(value="genreTags", encoded=true) String genreTag,
-                                                @Query(value="distanceTags", encoded=true) String distanceTag);
+                                                @Query(value="priceTags") List<String> priceTag,
+                                                @Query(value="genreTags") List<String> genreTag,
+                                                @Query(value="distanceTags") List<String> distanceTag);
 
     @GET("restaurants")
     Call<List<Restaurant>> getRestaurant(@Query("id") int restaurantId);
