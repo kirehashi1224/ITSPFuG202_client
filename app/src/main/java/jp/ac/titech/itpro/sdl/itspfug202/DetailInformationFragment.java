@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -24,14 +23,19 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
+import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
+import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static jp.ac.titech.itpro.sdl.itspfug202.ExpandableListAdapter.tagSectionMap;
 
 public class DetailInformationFragment extends Fragment {
     private Context context;
@@ -76,11 +80,30 @@ public class DetailInformationFragment extends Fragment {
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
         Call<List<Restaurant>> restaurantCall;
+        // チェックボックスの状態からクエリに付与するタグを取得
+        List<String> priceQuery = new ArrayList<>();
+        List<String> genreQuery = new ArrayList<>();
+        List<String> distanceQuery = new ArrayList<>();
+        for(Tag t : tagSectionMap.get(TagSection.TagType.PriceTag).getTagList()){
+            if(t.isChecked()){
+                priceQuery.add(String.valueOf(t.getId()));
+            }
+        }
+        for(Tag t : tagSectionMap.get(TagSection.TagType.GenreTag).getTagList()){
+            if(t.isChecked()){
+                genreQuery.add(String.valueOf(t.getId()));
+            }
+        }
+        for(Tag t : tagSectionMap.get(TagSection.TagType.DistanceTag).getTagList()){
+            if(t.isChecked()){
+                distanceQuery.add(String.valueOf(t.getId()));
+            }
+        }
         Bundle bundle = getArguments();
         if(bundle == null){
             throw new IllegalStateException("Bundleが空になっています");
         }else if(bundle.containsKey("random")){
-            restaurantCall = apiService.getRandomRestaurants("");
+            restaurantCall = apiService.getRandomRestaurants("", priceQuery, genreQuery, distanceQuery);
         }else if(bundle.containsKey("restaurant")){
             Restaurant restaurant = (Restaurant) getArguments().getSerializable("restaurant");
             Log.d("RestaurantId",String.valueOf(restaurant.getid()));
