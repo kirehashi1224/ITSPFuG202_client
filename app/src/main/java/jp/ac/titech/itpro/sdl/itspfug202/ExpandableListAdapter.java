@@ -78,16 +78,32 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if(convertView == null){
             convertView = inflater.inflate(R.layout.expandable_item, null);
         }
-        CheckBox checkBox = convertView.findViewById(R.id.expandable_check_box);
+        final CheckBox checkBox = convertView.findViewById(R.id.expandable_check_box);
         checkBox.setText(getChild(groupPosition, childPosition).getTag());
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkBox.setChecked(getChild(groupPosition, childPosition).isChecked());
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // チェック状態変更し、状態をtagSectionMapに保存
+                if(getChild(groupPosition, childPosition).isChecked()){
+                    checkBox.setSelected(false);
+                    getChild(groupPosition, childPosition).setChecked(false);
+                    Log.d("Tag_onCheckedChenged", getChild(groupPosition, childPosition).getTag()+" : false");
+                }else{
+                    checkBox.setSelected(true);
+                    getChild(groupPosition, childPosition).setChecked(true);
+                    Log.d("Tag_onCheckedChenged", getChild(groupPosition, childPosition).getTag()+" : true");
+                }
+            }
+        });
+        /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // チェック状態を保存
                 getChild(groupPosition, childPosition).setChecked(isChecked);
                 Log.d("Tag_onCheckedChenged", getChild(groupPosition, childPosition).getTag()+" : "+isChecked);
             }
-        });
+        });*/
 
         return convertView;
     }
