@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -173,6 +174,19 @@ public class DetailInformationFragment extends Fragment {
                             }
                         }
                     });
+
+                    // 画像をクリックして拡大
+                    if(restaurant.getImage_path() != null && restaurant.getImage_path().length() > 0) {
+                        detailShopImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentManager fragmentManager = getFragmentManager();
+                                LargeImageDialogFragment dialogFragment = new LargeImageDialogFragment();
+                                dialogFragment.setShop_image(detailShopImage);
+                                dialogFragment.show(fragmentManager, "shop image");
+                            }
+                        });
+                    }
                 }else{
                     Toast.makeText(getActivity(), "該当する店が存在しません", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
