@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        findViewById(R.id.randomButton).setEnabled(false);
+        findViewById(R.id.searchButton).setEnabled(false);
 
         ApiService apiService = new Retrofit.Builder()
                 .client(new OkHttpClient())
@@ -92,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-
+                        findViewById(R.id.randomButton).setEnabled(true);
+                        findViewById(R.id.searchButton).setEnabled(true);
                     }
                 });
 
