@@ -1,15 +1,9 @@
 package jp.ac.titech.itpro.sdl.itspfug202;
 
-import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
-import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
-import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection.TagType;
-import static jp.ac.titech.itpro.sdl.itspfug202.ExpandableListAdapter.tagSectionMap;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -33,11 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.ac.titech.itpro.sdl.itspfug202.model.Restaurant;
+import jp.ac.titech.itpro.sdl.itspfug202.model.Tag;
+import jp.ac.titech.itpro.sdl.itspfug202.model.TagSection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static jp.ac.titech.itpro.sdl.itspfug202.ExpandableListAdapter.tagSectionMap;
 
 public class DetailInformationFragment extends Fragment {
     private Context context;
